@@ -8,10 +8,12 @@
 
     <Button
         android:id="@+id/button"
+        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="50dp"
         android:text="Scan barcode"
+        app:icon="@drawable/ic_camera_alt_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
