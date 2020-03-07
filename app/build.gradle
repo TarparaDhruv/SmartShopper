@@ -40,4 +40,6 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     //material design library
     implementation 'com.google.android.material:material:1.1.0'
+    //lib for folding cell
+    implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
 }
