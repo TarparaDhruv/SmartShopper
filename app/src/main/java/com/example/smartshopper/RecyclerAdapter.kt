@@ -32,7 +32,7 @@ class RecyclerAdapter(private val ll: ArrayList<String>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tv = itemView.findViewById<TextView>(R.id.ctstv)
-        val tvcontent = itemView.findViewById<TextView>(R.id.textcontent)
+        val tvcontent = itemView.findViewById<TextView>(R.id.product_name)
         val fc = itemView.findViewById<FoldingCell>(R.id.folding_cell)
     }
 
