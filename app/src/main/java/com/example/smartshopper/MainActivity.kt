@@ -1,6 +1,7 @@
 package com.example.smartshopper
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -12,11 +13,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var linearLayoutManager: LinearLayoutManager
-
+    val FIRST_LAUNCH = "FirstLaunch"
+    val FIRST_PREF_NAME = "FirstLaunchPref"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var sharedPref = getSharedPreferences(FIRST_PREF_NAME, Context.MODE_PRIVATE)
+        if (sharedPref.getBoolean(FIRST_LAUNCH, true)) {
+            startActivity(Intent(baseContext, Intro::class.java))
+        }
+        with(sharedPref.edit()) {
+            putBoolean(FIRST_LAUNCH, false)
+            commit()
+        }
 
         button.setOnClickListener {
             val scanner = IntentIntegrator(this)
