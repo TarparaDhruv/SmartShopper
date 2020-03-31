@@ -14,8 +14,6 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment_custom : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
-    val FIRST_LAUNCH = "FirstLaunch"
-    val FIRST_PREF_NAME = "FirstLaunchPref"
     lateinit var v: View
 
     override fun onCreateView(

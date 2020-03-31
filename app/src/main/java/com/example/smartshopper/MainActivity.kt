@@ -1,5 +1,7 @@
 package com.example.smartshopper
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,8 +11,22 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+    val FIRST_LAUNCH = "FirstLaunch"
+    val FIRST_PREF_NAME = "FirstLaunchPref"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // chechk for first install and save it in shared preference
+        var sharedPref = getSharedPreferences(FIRST_PREF_NAME, Context.MODE_PRIVATE)
+        if (sharedPref.getBoolean(FIRST_LAUNCH, true)) {
+            startActivity(Intent(baseContext, Intro::class.java))
+        }
+        with(sharedPref.edit()) {
+            putBoolean(FIRST_LAUNCH, false)
+            commit()
+        }
+
+
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
