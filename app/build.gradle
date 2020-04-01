@@ -59,6 +59,8 @@ dependencies {
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
     //lib for introslides
     implementation 'com.heinrichreimersoftware:material-intro:2.0.0'
+    // for shopping list
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
