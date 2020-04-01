@@ -4,4 +4,5 @@
     <string name="title_home">Home</string>
     <string name="title_shopping_list">Shopping List</string>
     <string name="title_profiles">Profiles</string>
+    <string name="preference_file_key" />
 </resources>
