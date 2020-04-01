@@ -1,7 +1,9 @@
 package com.example.smartshopper
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -11,8 +13,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    val FIRST_LAUNCH = "FirstLaunch"
+    val INTRO_COMPLETED = "IntroCompleted"
     val FIRST_PREF_NAME = "FirstLaunchPref"
+    val REQUEST_CODE_INTRO = 1
+
+    lateinit var sharedPref: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,15 +35,30 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        // chechk for first install and save it in shared preference
-        var sharedPref = getSharedPreferences(FIRST_PREF_NAME, Context.MODE_PRIVATE)
-        if (sharedPref.getBoolean(FIRST_LAUNCH, true)) {
-            startActivity(Intent(baseContext, Intro::class.java))
+        // chechk for first install and intro completed or not and save it in shared preference
+        sharedPref = getSharedPreferences(FIRST_PREF_NAME, Context.MODE_PRIVATE)
+        if (!sharedPref.getBoolean(INTRO_COMPLETED, false)) {
+            startActivityForResult(Intent(baseContext, Intro::class.java), REQUEST_CODE_INTRO)
         }
-        with(sharedPref.edit()) {
-            putBoolean(FIRST_LAUNCH, false)
-            commit()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_INTRO) {
+            sharedPref = getSharedPreferences(FIRST_PREF_NAME, Context.MODE_PRIVATE)
+            if (resultCode == Activity.RESULT_OK) {
+                with(sharedPref.edit()) {
+                    putBoolean(INTRO_COMPLETED, true)
+                    commit()
+                }
+            } else {
+                with(sharedPref.edit()) {
+                    putBoolean(INTRO_COMPLETED, false)
+                    commit()
+                }
+            }
         }
+
     }
 
 }
