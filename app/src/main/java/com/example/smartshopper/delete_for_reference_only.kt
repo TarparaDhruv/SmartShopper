@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.zxing.integration.android.IntentIntegrator
 
-class MainActivityold : AppCompatActivity() {
+class delete_for_reference_only : AppCompatActivity() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     val FIRST_LAUNCH = "FirstLaunch"
     val FIRST_PREF_NAME = "FirstLaunchPref"
