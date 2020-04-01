@@ -2,6 +2,7 @@ package com.example.smartshopper
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,19 +21,21 @@ class ShoppingList_custom : Fragment() {
 
     private var shoppingList1: ArrayList<ShoppingListViewModel> = ArrayList()
     val SECOND_PREF_NAME = "SecondLaunchPref"
+    lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var root = inflater.inflate(R.layout.fragment_shopping_list, container, false)
-        var recyclerView = root.findViewById(R.id.recylcerView) as RecyclerView
+        val root = inflater.inflate(R.layout.fragment_shopping_list, container, false)
+        val recyclerView = root.findViewById(R.id.recylcerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         val gson = Gson()
-        var sharedPref = activity?.getSharedPreferences(SECOND_PREF_NAME, Context.MODE_PRIVATE)
-        var list = sharedPref?.getString("Set", null)
+        sharedPref = activity?.getSharedPreferences(SECOND_PREF_NAME, Context.MODE_PRIVATE)!!
+        val list = sharedPref.getString("Set", null)
+
         if (list != null) {
             val itemType = object : TypeToken<ArrayList<ShoppingListViewModel>>() {}.type
             shoppingList1 = gson.fromJson(list, itemType)
@@ -54,12 +57,12 @@ class ShoppingList_custom : Fragment() {
                     val gson = Gson()
                     val json = gson.toJson(shoppingList1)
                     //val sharedPref = this?.getPreferences(Context.MODE_PRIVATE)
-                    val sharedPref = this.activity?.getPreferences(Context.MODE_PRIVATE)
+                    //val sharedPref = this.activity?.getPreferences(Context.MODE_PRIVATE)
                     //sharedPref?.getSharedPreferences("pref", Context.MODE_PRIVATE)
 
-                    with(sharedPref!!.edit()) {
+                    with(sharedPref.edit()) {
                         putString("Set", json)
-                        commit()
+                        apply()
                     }
                     val adapter = CustomAdapter(this, shoppingList1)
                     recyclerView.adapter = adapter
@@ -68,7 +71,6 @@ class ShoppingList_custom : Fragment() {
             dialog.setNegativeButton("Cancel") { _: DialogInterface, _: Int ->
             }
             dialog.show()
-
         }
         return root
     }
