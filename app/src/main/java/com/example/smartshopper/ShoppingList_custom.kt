@@ -11,9 +11,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.fragment_shopping_list.*
 
 
 class ShoppingList_custom : Fragment() {
@@ -26,35 +26,38 @@ class ShoppingList_custom : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_shopping_list, container, false)
-        val recyclerView = root.findViewById(R.id.recylcerView) as RecyclerView
-        recyclerView!!.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        var root = inflater.inflate(R.layout.fragment_shopping_list, container, false)
+        var recyclerView = root.findViewById(R.id.recylcerView) as RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         val gson = Gson()
         var sharedPref = activity?.getSharedPreferences(SECOND_PREF_NAME, Context.MODE_PRIVATE)
         var list = sharedPref?.getString("Set", null)
-        val itemType = object : TypeToken<ArrayList<ShoppingListViewModel>>() {}.type
-        shoppingList1 = gson.fromJson(list, itemType)
-        val adapter = CustomAdapter(this, shoppingList1)
-        recyclerView.adapter = adapter
+        if (list != null) {
+            val itemType = object : TypeToken<ArrayList<ShoppingListViewModel>>() {}.type
+            shoppingList1 = gson.fromJson(list, itemType)
+            val adapter = CustomAdapter(this, shoppingList1)
+            recyclerView.adapter = adapter
+        }
+
         val context: Context = this.context ?: return root
 
-        fabAdd.setOnClickListener {
+        root.findViewById<FloatingActionButton>(R.id.fabAdd).setOnClickListener {
             val dialog = AlertDialog.Builder(context)
             val view = inflater.inflate(R.layout.dialog_dashboard, container, false)
             //val view = layoutInflater.inflate(R.layout.dialog_dashboard, null)
             val itemName = view.findViewById(R.id.ev_itemName) as EditText
             dialog.setView(view)
-            dialog.setPositiveButton("Save") {_: DialogInterface, _:Int->
-                if(itemName.text.isNotEmpty()){
-                    shoppingList1.add(ShoppingListViewModel(false,itemName?.text.toString()))
+            dialog.setPositiveButton("Save") { _: DialogInterface, _: Int ->
+                if (itemName.text.isNotEmpty()) {
+                    shoppingList1.add(ShoppingListViewModel(false, itemName.text.toString()))
                     val gson = Gson()
                     val json = gson.toJson(shoppingList1)
                     //val sharedPref = this?.getPreferences(Context.MODE_PRIVATE)
                     val sharedPref = this.activity?.getPreferences(Context.MODE_PRIVATE)
                     //sharedPref?.getSharedPreferences("pref", Context.MODE_PRIVATE)
 
-                    with (sharedPref!!.edit()) {
+                    with(sharedPref!!.edit()) {
                         putString("Set", json)
                         commit()
                     }
@@ -62,7 +65,7 @@ class ShoppingList_custom : Fragment() {
                     recyclerView.adapter = adapter
                 }
             }
-            dialog.setNegativeButton("Cancel") {_: DialogInterface, _:Int->
+            dialog.setNegativeButton("Cancel") { _: DialogInterface, _: Int ->
             }
             dialog.show()
 
