@@ -1,6 +1,6 @@
 package com.example.smartshopper
 
-import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +10,12 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smartshopper.R
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_shopping_list.*
 
 
-class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayList<ShoppingListViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
+class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayList<ShoppingListViewModel>, val sharedPref: SharedPreferences) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // binding view
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.list_layout, parent, false)
@@ -39,11 +39,9 @@ class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayLi
             activity.recylcerView.adapter!!.notifyDataSetChanged()
             val gson = Gson()
             val json = gson.toJson(shoppingList)
-            val sharedPreferences = activity.activity
-            val sharedPref = sharedPreferences!!.getPreferences(Context.MODE_PRIVATE)
-            with (sharedPref!!.edit()) {
+            with(sharedPref.edit()) {
                 putString("Set", json)
-                commit()
+                apply()
             }
         }
 
@@ -65,11 +63,9 @@ class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayLi
             activity.recylcerView.adapter!!.notifyDataSetChanged()
             val gson = Gson()
             val json = gson.toJson(shoppingList)
-            val sharedPreferences = activity.activity
-            val sharedPref = sharedPreferences!!.getPreferences(Context.MODE_PRIVATE)
-            with (sharedPref.edit()) {
+            with(sharedPref.edit()) {
                 putString("Set", json)
-                commit()
+                apply()
             }
         }
 
@@ -79,13 +75,9 @@ class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayLi
                 shopList.isCompleted = holder.cbIsCompleted.isChecked
                 val gson = Gson()
                 val json = gson.toJson(shoppingList)
-                val sharedPreferences = activity.activity
-                val sharedPref = sharedPreferences!!.getPreferences(Context.MODE_PRIVATE)
-                //val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-                //val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-                with (sharedPref.edit()) {
+                with(sharedPref.edit()) {
                     putString("Set", json)
-                    commit()
+                    apply()
                 }
                 if (shopList.isCompleted) {
                     holder.tvName.setPaintFlags(holder.tvName.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)

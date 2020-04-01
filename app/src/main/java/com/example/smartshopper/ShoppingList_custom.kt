@@ -19,7 +19,7 @@ import com.google.gson.reflect.TypeToken
 
 class ShoppingList_custom : Fragment() {
 
-    private var shoppingList1: ArrayList<ShoppingListViewModel> = ArrayList()
+    private var shoppingList: ArrayList<ShoppingListViewModel> = ArrayList()
     val SECOND_PREF_NAME = "SecondLaunchPref"
     lateinit var sharedPref: SharedPreferences
 
@@ -38,8 +38,8 @@ class ShoppingList_custom : Fragment() {
 
         if (list != null) {
             val itemType = object : TypeToken<ArrayList<ShoppingListViewModel>>() {}.type
-            shoppingList1 = gson.fromJson(list, itemType)
-            val adapter = CustomAdapter(this, shoppingList1)
+            shoppingList = gson.fromJson(list, itemType)
+            val adapter = CustomAdapter(this, shoppingList, sharedPref)
             recyclerView.adapter = adapter
         }
 
@@ -53,18 +53,14 @@ class ShoppingList_custom : Fragment() {
             dialog.setView(view)
             dialog.setPositiveButton("Save") { _: DialogInterface, _: Int ->
                 if (itemName.text.isNotEmpty()) {
-                    shoppingList1.add(ShoppingListViewModel(false, itemName.text.toString()))
+                    shoppingList.add(ShoppingListViewModel(false, itemName.text.toString()))
                     val gson = Gson()
-                    val json = gson.toJson(shoppingList1)
-                    //val sharedPref = this?.getPreferences(Context.MODE_PRIVATE)
-                    //val sharedPref = this.activity?.getPreferences(Context.MODE_PRIVATE)
-                    //sharedPref?.getSharedPreferences("pref", Context.MODE_PRIVATE)
-
+                    val json = gson.toJson(shoppingList)
                     with(sharedPref.edit()) {
                         putString("Set", json)
                         apply()
                     }
-                    val adapter = CustomAdapter(this, shoppingList1)
+                    val adapter = CustomAdapter(this, shoppingList, sharedPref)
                     recyclerView.adapter = adapter
                 }
             }
