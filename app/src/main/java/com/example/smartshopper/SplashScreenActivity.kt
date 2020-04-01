@@ -3,10 +3,11 @@ package com.example.smartshopper
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
@@ -21,6 +22,11 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+        //hide status bar for fullscreen
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
         val backgroundTask = object : Thread() {
             override fun run() {
@@ -58,12 +64,12 @@ class SplashScreenActivity : AppCompatActivity() {
 
     fun goToMain() {
         try {
-            Thread.sleep(5000)
+            Thread.sleep(2000)
             val intent = Intent(baseContext, MainActivity::class.java)
             startActivity(intent)
             finish()
         } catch (e: Exception) {
-            Log.e("SplashScreen", e.message)
+            Log.e("SplashScreen", e.message.toString())
             Toast.makeText(
                 applicationContext,
                 "An error occurred. Please try again after some time",
