@@ -13,18 +13,16 @@
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashScreenTheme">
-
-        </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".Intro"
+            android:theme="@style/Theme.Intro" />
         <activity android:name=".getBarcode" />
     </application>
 

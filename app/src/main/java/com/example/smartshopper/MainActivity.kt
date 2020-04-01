@@ -16,17 +16,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // chechk for first install and save it in shared preference
-        var sharedPref = getSharedPreferences(FIRST_PREF_NAME, Context.MODE_PRIVATE)
-        if (sharedPref.getBoolean(FIRST_LAUNCH, true)) {
-            startActivity(Intent(baseContext, Intro::class.java))
-        }
-        with(sharedPref.edit()) {
-            putBoolean(FIRST_LAUNCH, false)
-            commit()
-        }
-
-
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -40,6 +29,16 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // chechk for first install and save it in shared preference
+        var sharedPref = getSharedPreferences(FIRST_PREF_NAME, Context.MODE_PRIVATE)
+        if (sharedPref.getBoolean(FIRST_LAUNCH, true)) {
+            startActivity(Intent(baseContext, Intro::class.java))
+        }
+        with(sharedPref.edit()) {
+            putBoolean(FIRST_LAUNCH, false)
+            commit()
+        }
     }
 
 }
