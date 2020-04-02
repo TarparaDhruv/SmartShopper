@@ -1,15 +1,11 @@
 package com.example.smartshopper
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
@@ -35,41 +31,40 @@ class SplashScreenActivityNEW : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        Glide.with(baseContext).load(R.drawable.store_2).into(show_gif_here)
+        Glide.with(baseContext).load(R.drawable.store_2).into(splash_gif)
 
         val backgroundTask = object : Thread() {
             override fun run() {
-
-                checkAllPermissions(
-                    this@SplashScreenActivityNEW, allPermissions = hashMapOf(
-                        Manifest.permission.INTERNET to INTERNET_REQUEST_CODE,
-                        Manifest.permission.ACCESS_NETWORK_STATE to ACCESS_NETWORK_STATE_REQUEST_CODE,
-                        Manifest.permission.CAMERA to CAMERA_REQUEST_CODE
-                    )
-                )
+                goToMain()
+//                checkAllPermissions(
+//                    this@SplashScreenActivityNEW, allPermissions = hashMapOf(
+//                        Manifest.permission.INTERNET to INTERNET_REQUEST_CODE,
+//                        Manifest.permission.ACCESS_NETWORK_STATE to ACCESS_NETWORK_STATE_REQUEST_CODE,
+//                        Manifest.permission.CAMERA to CAMERA_REQUEST_CODE
+//                    )
+//                )
 
             }
-        }
-        backgroundTask.start()
+        }.start()
     }
 
-    fun checkAllPermissions(currentActivity: AppCompatActivity, allPermissions: Map<String, Int>) {
-        allPermissions.forEach { permissionName, permissionRequestCode ->
-            run {
-                val permission = ContextCompat.checkSelfPermission(currentActivity, permissionName)
-                if (permission != PackageManager.PERMISSION_GRANTED) {
-                    Log.i(TAG, "Requesting permission for ${permissionName}.")
-                    permissionsRequestedCount++
-                    ActivityCompat.requestPermissions(
-                        currentActivity,
-                        arrayOf(permissionName),
-                        permissionRequestCode
-                    )
-                }
-            }
-        }
-        goToMain()
-    }
+//    fun checkAllPermissions(currentActivity: AppCompatActivity, allPermissions: Map<String, Int>) {
+//        allPermissions.forEach { permissionName, permissionRequestCode ->
+//            run {
+//                val permission = ContextCompat.checkSelfPermission(currentActivity, permissionName)
+//                if (permission != PackageManager.PERMISSION_GRANTED) {
+//                    Log.i(TAG, "Requesting permission for ${permissionName}.")
+//                    permissionsRequestedCount++
+//                    ActivityCompat.requestPermissions(
+//                        currentActivity,
+//                        arrayOf(permissionName),
+//                        permissionRequestCode
+//                    )
+//                }
+//            }
+//        }
+//        goToMain()
+//    }
 
     fun goToMain() {
         try {
