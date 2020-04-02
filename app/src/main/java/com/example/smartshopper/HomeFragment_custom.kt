@@ -29,6 +29,8 @@ class HomeFragment_custom : Fragment() {
 
         v = inflater.inflate(R.layout.fragment_home, container, false)
 
+        linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        v.recyclerView.layoutManager = linearLayoutManager
 
 ////////////////////////////////////
         var upc = "1234" //Barcode
@@ -46,6 +48,9 @@ class HomeFragment_custom : Fragment() {
                         var product = Product(storeName, item)
                         productVersions.add(product)
                     }
+                    var temp = RecyclerAdapter(productVersions)
+                    v.recyclerView.adapter = temp
+                    temp.notifyDataSetChanged()
                 }
                 // textView3.text = productVersions[0].toString()
                 // textView3.text = item["price"].toString()
@@ -80,8 +85,8 @@ class HomeFragment_custom : Fragment() {
 //
 //        })
 
-        linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        v.recyclerView.layoutManager = linearLayoutManager
+    //    linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+     //   v.recyclerView.layoutManager = linearLayoutManager
      //   val ll = ArrayList<String>()
 //        ll.add("1")
 //        ll.add("2")
@@ -91,9 +96,9 @@ class HomeFragment_custom : Fragment() {
 //        ll.add("6")
 //        ll.add("7")
 //        ll.add("8")
-       var temp = RecyclerAdapter(productVersions)
+      /* var temp = RecyclerAdapter(productVersions)
         v.recyclerView.adapter = temp
-        temp.notifyDataSetChanged()
+        temp.notifyDataSetChanged()*/
 
         /*ll.add("23981-2")
         val lll = ArrayList<String>()
