@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.fragment_shopping_list.*
 class CustomAdapter(
     val activity: ShoppingList_custom,
     val shoppingList: ArrayList<ShoppingListViewModel>,
-    val sharedPref: SharedPreferences
+    val sharedPref: SharedPreferences,
+    val intface: refreshthipage
 ) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,6 +48,8 @@ class CustomAdapter(
                 putString("Set", json)
                 apply()
             }
+            intface.refreshfrag()
+
         }
 
         holder.btnedit.setOnClickListener {

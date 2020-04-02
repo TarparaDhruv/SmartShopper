@@ -8,31 +8,22 @@
     android:scrollbarStyle="outsideOverlay"
     tools:context=".ShoppingList_custom">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/searchbar"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:hint="Search Product"
-        app:endIconMode="clear_text"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/design_default_color_error"
+        android:text="Delete all"
+        android:textAllCaps="true"
+        app:icon="@drawable/ic_delete_forever_black_24dp"
+        app:iconGravity="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:startIconContentDescription=""
-        app:startIconDrawable="?android:attr/actionModeWebSearchDrawable">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionSearch"
-            android:inputType="textAutoComplete"
-            android:textSize="18sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerView"
@@ -42,13 +33,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="#FFFFFF"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/fabAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/button_delete" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabAdd"
@@ -59,7 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="Add to the Shopping List"
-        android:text="ADD"
+        android:text="add"
         android:textAllCaps="true"
         app:icon="@drawable/ic_playlist_add_black_24dp"
         app:iconGravity="textStart"
@@ -72,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/store_2"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/recylcerView"
         app:layout_constraintEnd_toEndOf="@+id/recylcerView"
