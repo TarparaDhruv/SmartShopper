@@ -38,6 +38,10 @@ class CustomAdapter(
         val shopList: ShoppingListViewModel = shoppingList[position]
         holder.tvName?.text = shopList.itemName
         holder.cbIsCompleted?.isChecked = shopList.isCompleted
+       if(shopList.isCompleted) {
+            holder.tvName.paintFlags =
+                holder.tvName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        }
 
         holder.btnRemove.setOnClickListener {
             shoppingList.remove(shoppingList[position])
