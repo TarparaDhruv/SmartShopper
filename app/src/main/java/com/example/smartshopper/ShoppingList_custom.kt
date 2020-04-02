@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_shopping_list.view.*
@@ -35,15 +36,19 @@ class ShoppingList_custom : Fragment() {
         val gson = Gson()
         sharedPref = activity?.getSharedPreferences(SECOND_PREF_NAME, Context.MODE_PRIVATE)!!
         val list = sharedPref.getString("Set", null)
+        val context: Context = this.context ?: return root
 
         if (list != null) {
             val itemType = object : TypeToken<ArrayList<ShoppingListViewModel>>() {}.type
             shoppingList = gson.fromJson(list, itemType)
             val adapter = CustomAdapter(this, shoppingList, sharedPref)
             recyclerView.adapter = adapter
+            root.empty_shopplin_list_gif.visibility = View.GONE
+        } else {
+            //show empty list gif
+            root.empty_shopplin_list_gif.visibility = View.VISIBLE
+            Glide.with(requireContext()).load(R.drawable.store_2).into(root.empty_shopplin_list_gif)
         }
-
-        val context: Context = this.context ?: return root
 
         root.fabAdd.setOnClickListener {
             val dialog = AlertDialog.Builder(context)
@@ -62,6 +67,8 @@ class ShoppingList_custom : Fragment() {
                     }
                     val adapter = CustomAdapter(this, shoppingList, sharedPref)
                     recyclerView.adapter = adapter
+                    //hide gif when item added to list
+                    root.empty_shopplin_list_gif.visibility = View.GONE
                 }
             }
             dialog.setNegativeButton("Cancel") { _: DialogInterface, _: Int ->
