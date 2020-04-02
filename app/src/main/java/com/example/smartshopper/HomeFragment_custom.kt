@@ -47,6 +47,9 @@ class HomeFragment_custom : Fragment() {
         ll.add("3")
         ll.add("4")
         ll.add("5")
+        ll.add("6")
+        ll.add("7")
+        ll.add("8")
         v.recyclerView.adapter = RecyclerAdapter(ll)
         return v
     }

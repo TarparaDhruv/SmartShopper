@@ -21,11 +21,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Intro"
             android:theme="@style/Theme.Intro" />
+        <activity
+            android:name=".Help"
+            android:theme="@style/Theme.Intro" />
         <activity android:name=".getBarcode" />
+
     </application>
 
 </manifest>
