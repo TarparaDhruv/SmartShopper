@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/ctstv"
+        android:id="@+id/productTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -17,14 +17,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/currentPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Current Price"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/ctstv"
-        app:layout_constraintTop_toBottomOf="@+id/ctstv" />
+        app:layout_constraintStart_toStartOf="@+id/productTitle"
+        app:layout_constraintTop_toBottomOf="@+id/productTitle" />
 
     <TextView
         android:id="@+id/textView4"
@@ -33,8 +33,8 @@
         android:layout_marginTop="8dp"
         android:text="Avg price"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="@+id/currentPrice"
+        app:layout_constraintTop_toBottomOf="@+id/currentPrice" />
 
     <ImageView
         android:id="@+id/imageView"

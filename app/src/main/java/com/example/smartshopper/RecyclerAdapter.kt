@@ -24,7 +24,11 @@ class RecyclerAdapter(private val ll: MutableList<Product>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        holder.tv.text = ll[position]
 //        holder.tvcontent.text = ll[position]
-        holder.tv.text = ll[position].item?.get("price").toString()
+        holder.price.text = ll[position].item?.get("price").toString()
+        holder.productName.text = ll[position].item?.get("name").toString()
+        holder.storeName.text = ll[position].storeName
+        holder.productTitle.text = ll[position].item?.get("name").toString()
+        holder.currentPrice.text = ll[position].item?.get("price").toString()
         holder.fc.setOnClickListener {
             holder.fc.toggle(false)
         }
@@ -33,8 +37,11 @@ class RecyclerAdapter(private val ll: MutableList<Product>) :
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tv = itemView.findViewById<TextView>(R.id.ctstv)
-        val productName = itemView.findViewById<TextView>(R.id.product_name)
+        val price = itemView.findViewById<TextView>(R.id.price)
+        val productName = itemView.findViewById<TextView>(R.id.productName)
+        val storeName = itemView.findViewById<TextView>(R.id.storeName)
+        val productTitle = itemView.findViewById<TextView>(R.id.productTitle)
+        val currentPrice = itemView.findViewById<TextView>(R.id.currentPrice)
         val fc = itemView.findViewById<FoldingCell>(R.id.folding_cell)
     }
 
