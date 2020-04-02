@@ -46,62 +46,7 @@ class HomeFragment_custom : Fragment() {
         v = inflater.inflate(R.layout.fragment_home, container, false)
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         v.recyclerView.layoutManager = linearLayoutManager
-        var upc = "1234" //Barcode
-////////////////////////////////////
-
-        /* var firebaseDatabase = FirebaseDatabase.getInstance()
-         val rootRef = firebaseDatabase.reference
-         var item: Map<String, Any>?
-         lateinit var storeName: String
-         rootRef.addValueEventListener(object : ValueEventListener {
-             override fun onDataChange(p0: DataSnapshot) {
-                 for (postSnapshot in p0.children) {
-                     item = postSnapshot.child("items").child(upc).value as Map<String, Any>?
-                     if (item != null) {
-                         storeName = postSnapshot.child("storeName").value.toString()
-                         var product = Product(storeName, item)
-                         productVersions.add(product)
-                     }
-                     var temp = RecyclerAdapter(productVersions)
-                     v.recyclerView.adapter = temp
-                     temp.notifyDataSetChanged()
-                 }
-                 // textView3.text = productVersions[0].toString()
-                 // textView3.text = item["price"].toString()
-                 //  textView.text = productVersions[1].item?.get("price").toString()
-                 //    print("////////////////////////////" + productVersions[0].item?.get("price") + "/////////////////////////////////////")
-             }
-
-             override fun onCancelled(p0: DatabaseError) {
-
-             }
-
-         })*/
-/////////////////////////////////////////////////////////////////////
-
-//************************************************************
-      // val mAuth = FirebaseAuth.getInstance()
-
-
-        /*mAuth.signInAnonymously().addOnCompleteListener(requireActivity(), object: OnCompleteListener<AuthResult>{
-
-            override fun onComplete(p0: Task<AuthResult>) {
-                var message: String
-                if (p0.isSuccessful()) {
-                    message = "success signInWithEmailAndPassword";
-                } else {
-                    message = "fail signInWithEmailAndPassword";
-                }
-                productName.setText(message);
-            }
-        }).addOnFailureListener(object: OnFailureListener {
-
-            override fun onFailure(p0: Exception) {
-                productName.setText(p0.toString());
-                p0.printStackTrace();
-            }
-
-        })*/
+        var upc = "901030756511" //Barcode
 
         mAuth.signInAnonymously().addOnSuccessListener(requireActivity()) {
             fetchData(upc)
@@ -116,9 +61,6 @@ class HomeFragment_custom : Fragment() {
                 )
 
             }
-
-//************************************************************
-
 
         //    linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         //   v.recyclerView.layoutManager = linearLayoutManager
@@ -165,6 +107,9 @@ class HomeFragment_custom : Fragment() {
                     }
                 }
                 productVersions.sortBy { it -> it.item?.get("price") as Double }
+                var temp = RecyclerAdapter(productVersions)
+                v.recyclerView.adapter = temp
+                temp.notifyDataSetChanged()
 //                textView3.text = productVersions[0].item?.get("price").toString()
             }
 
@@ -175,8 +120,8 @@ class HomeFragment_custom : Fragment() {
         })
 
         storageRef.downloadUrl.addOnSuccessListener {
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
-            //Glide.with(requireContext()).load(it).into(v.imageView3)
+           // Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+            Glide.with(requireContext()).load(it).into(v.imageView3)
         }.addOnFailureListener { }
     }
 
