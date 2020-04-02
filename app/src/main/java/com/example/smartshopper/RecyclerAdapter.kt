@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smartshopper.model.Product
 import com.ramotion.foldingcell.FoldingCell
 
-class RecyclerAdapter(private val ll: ArrayList<String>) :
+class RecyclerAdapter(private val ll: MutableList<Product>) :
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,8 +22,9 @@ class RecyclerAdapter(private val ll: ArrayList<String>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tv.text = ll[position]
-        holder.tvcontent.text = ll[position]
+//        holder.tv.text = ll[position]
+//        holder.tvcontent.text = ll[position]
+        holder.tv.text = ll[position].item?.get("price").toString()
         holder.fc.setOnClickListener {
             holder.fc.toggle(false)
         }
@@ -32,7 +34,7 @@ class RecyclerAdapter(private val ll: ArrayList<String>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tv = itemView.findViewById<TextView>(R.id.ctstv)
-        val tvcontent = itemView.findViewById<TextView>(R.id.product_name)
+        val productName = itemView.findViewById<TextView>(R.id.product_name)
         val fc = itemView.findViewById<FoldingCell>(R.id.folding_cell)
     }
 
