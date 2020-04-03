@@ -21,11 +21,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
         <activity
-            android:name=".Intro"
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".IntroActivity"
             android:theme="@style/Theme.Intro" />
-        <activity android:name=".getBarcode" />
+        <activity
+            android:name=".HelpActivity"
+            android:theme="@style/Theme.Intro" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

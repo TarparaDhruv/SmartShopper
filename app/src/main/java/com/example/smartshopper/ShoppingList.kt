@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.smartshopper
 
 import android.content.Context
@@ -12,16 +14,25 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_shopping_list.view.*
 
+interface RefreshThisFragment {
+    fun refreshFragment()
+}
 
-class ShoppingList_custom : Fragment() {
+class ShoppingList_custom : Fragment(), RefreshThisFragment {
+
+    override fun refreshFragment() {
+        fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
+    }
 
     private var shoppingList: ArrayList<ShoppingListViewModel> = ArrayList()
     val SECOND_PREF_NAME = "SecondLaunchPref"
     lateinit var sharedPref: SharedPreferences
+    lateinit var adapter: CustomAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,15 +46,28 @@ class ShoppingList_custom : Fragment() {
         val gson = Gson()
         sharedPref = activity?.getSharedPreferences(SECOND_PREF_NAME, Context.MODE_PRIVATE)!!
         val list = sharedPref.getString("Set", null)
+        val context: Context = this.context ?: return root
 
         if (list != null) {
             val itemType = object : TypeToken<ArrayList<ShoppingListViewModel>>() {}.type
             shoppingList = gson.fromJson(list, itemType)
-            val adapter = CustomAdapter(this, shoppingList, sharedPref)
-            recyclerView.adapter = adapter
+            if (shoppingList.size > 0) {
+                adapter = CustomAdapter(this, shoppingList, sharedPref, intface = this)
+                recyclerView.adapter = adapter
+                root.empty_shopplin_list_gif.visibility = View.GONE
+            } else {
+                //show empty list gif if size is zero
+                root.empty_shopplin_list_gif.visibility = View.VISIBLE
+                Glide.with(requireContext()).load(R.drawable.store_2)
+                    .into(root.empty_shopplin_list_gif)
+                root.button_delete.visibility = View.GONE
+            }
+        } else {
+            //show empty list gif
+            root.empty_shopplin_list_gif.visibility = View.VISIBLE
+            Glide.with(requireContext()).load(R.drawable.store_2).into(root.empty_shopplin_list_gif)
+            root.button_delete.visibility = View.GONE
         }
-
-        val context: Context = this.context ?: return root
 
         root.fabAdd.setOnClickListener {
             val dialog = AlertDialog.Builder(context)
@@ -60,14 +84,33 @@ class ShoppingList_custom : Fragment() {
                         putString("Set", json)
                         apply()
                     }
-                    val adapter = CustomAdapter(this, shoppingList, sharedPref)
+                    adapter = CustomAdapter(this, shoppingList, sharedPref, intface = this)
                     recyclerView.adapter = adapter
+                    //hide gif when item added to list
+                    root.empty_shopplin_list_gif.visibility = View.GONE
+                    root.button_delete.visibility = View.VISIBLE
                 }
             }
             dialog.setNegativeButton("Cancel") { _: DialogInterface, _: Int ->
             }
             dialog.show()
         }
+        //clear sharedpref and refresh fragment
+        root.button_delete.setOnClickListener {
+            sharedPref = activity?.getSharedPreferences(SECOND_PREF_NAME, Context.MODE_PRIVATE)!!
+            val gson = Gson()
+            shoppingList.removeAll(shoppingList)
+            val json = gson.toJson(shoppingList)
+            with(sharedPref.edit()) {
+                putString("Set", json)
+                apply()
+            }
+
+            recyclerView.adapter = null
+            fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
+        }
+
         return root
     }
 }
+

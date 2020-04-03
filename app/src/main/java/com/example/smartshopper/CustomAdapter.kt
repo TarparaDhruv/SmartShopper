@@ -14,11 +14,16 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_shopping_list.*
 
 
-class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayList<ShoppingListViewModel>, val sharedPref: SharedPreferences) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
+class CustomAdapter(
+    val activity: ShoppingList_custom,
+    val shoppingList: ArrayList<ShoppingListViewModel>,
+    val sharedPref: SharedPreferences,
+    val intface: RefreshThisFragment
+) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // binding view
-        val v = LayoutInflater.from(parent?.context).inflate(R.layout.list_layout, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_layout, parent, false)
         return ViewHolder(v)
     }
 
@@ -28,13 +33,17 @@ class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayLi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // binding values
-        holder.evName.setVisibility(View.GONE)
-        holder.ivDone.setVisibility(View.GONE)
+        holder.evName.visibility = View.GONE
+        holder.ivDone.visibility = View.GONE
         val shopList: ShoppingListViewModel = shoppingList[position]
-        holder?.tvName?.text = shopList.itemName
-        holder?.cbIsCompleted?.isChecked = shopList.isCompleted
+        holder.tvName?.text = shopList.itemName
+        holder.cbIsCompleted?.isChecked = shopList.isCompleted
+        if (shopList.isCompleted) {
+            holder.tvName.paintFlags =
+                holder.tvName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        }
 
-        holder.btnRemove.setOnClickListener{
+        holder.btnRemove.setOnClickListener {
             shoppingList.remove(shoppingList[position])
             activity.recylcerView.adapter!!.notifyDataSetChanged()
             val gson = Gson()
@@ -43,23 +52,25 @@ class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayLi
                 putString("Set", json)
                 apply()
             }
+            intface.refreshFragment()
+
         }
 
         holder.btnedit.setOnClickListener {
-            holder.tvName.setVisibility(View.GONE)
-            holder.evName.setVisibility(View.VISIBLE)
-            holder.ivDone.setVisibility(View.VISIBLE)
-            holder.btnRemove.setVisibility(View.GONE)
-            holder.btnedit.setVisibility(View.GONE)
+            holder.tvName.visibility = View.GONE
+            holder.evName.visibility = View.VISIBLE
+            holder.ivDone.visibility = View.VISIBLE
+            holder.btnRemove.visibility = View.GONE
+            holder.btnedit.visibility = View.GONE
         }
 
-        holder.ivDone.setOnClickListener{
-            shoppingList.set( position, ShoppingListViewModel(false, holder.evName.text.toString()))
-            holder.evName.setVisibility(View.GONE)
-            holder.ivDone.setVisibility(View.GONE)
-            holder.btnRemove.setVisibility(View.VISIBLE)
-            holder.btnedit.setVisibility(View.VISIBLE)
-            holder.tvName.setVisibility(View.VISIBLE)
+        holder.ivDone.setOnClickListener {
+            shoppingList.set(position, ShoppingListViewModel(false, holder.evName.text.toString()))
+            holder.evName.visibility = View.GONE
+            holder.ivDone.visibility = View.GONE
+            holder.btnRemove.visibility = View.VISIBLE
+            holder.btnedit.visibility = View.VISIBLE
+            holder.tvName.visibility = View.VISIBLE
             activity.recylcerView.adapter!!.notifyDataSetChanged()
             val gson = Gson()
             val json = gson.toJson(shoppingList)
@@ -70,8 +81,14 @@ class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayLi
         }
 
         holder.cbIsCompleted.setOnClickListener(object : View.OnClickListener {
-            override fun  onClick(arg0: View) {
-                shoppingList.set( position, ShoppingListViewModel(holder.cbIsCompleted.isChecked, holder.tvName.text.toString()))
+            override fun onClick(arg0: View) {
+                shoppingList.set(
+                    position,
+                    ShoppingListViewModel(
+                        holder.cbIsCompleted.isChecked,
+                        holder.tvName.text.toString()
+                    )
+                )
                 shopList.isCompleted = holder.cbIsCompleted.isChecked
                 val gson = Gson()
                 val json = gson.toJson(shoppingList)
@@ -80,20 +97,22 @@ class CustomAdapter(val activity: ShoppingList_custom, val shoppingList: ArrayLi
                     apply()
                 }
                 if (shopList.isCompleted) {
-                    holder.tvName.setPaintFlags(holder.tvName.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
+                    holder.tvName.paintFlags =
+                        holder.tvName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     shoppingList.get(position)
-                    holder.btnRemove.setVisibility(View.GONE)
-                    holder.btnedit.setVisibility(View.GONE)
+                    holder.btnRemove.visibility = View.VISIBLE
+                    holder.btnedit.visibility = View.VISIBLE
                 } else {
-                    holder.tvName.setPaintFlags(holder.tvName.getPaintFlags() and Paint.STRIKE_THRU_TEXT_FLAG.inv())
-                    holder.btnRemove.setVisibility(View.VISIBLE)
-                    holder.btnedit.setVisibility(View.VISIBLE)
+                    holder.tvName.paintFlags =
+                        holder.tvName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    holder.btnRemove.visibility = View.VISIBLE
+                    holder.btnedit.visibility = View.VISIBLE
                 }
             }
         })
     }
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName = itemView.findViewById<TextView>(R.id.tvName)
         val cbIsCompleted = itemView.findViewById<CheckBox>(R.id.cbIsCompleted)
         val btnRemove = itemView.findViewById<ImageView>(R.id.iv_delete)

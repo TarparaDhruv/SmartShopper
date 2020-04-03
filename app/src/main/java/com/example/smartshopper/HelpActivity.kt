@@ -1,13 +1,13 @@
 package com.example.smartshopper
 
-import android.Manifest
 import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.app.NavigationPolicy
+import com.heinrichreimersoftware.materialintro.slide.FragmentSlide
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 
+class HelpActivity : IntroActivity() {
 
-class Intro : IntroActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Add slides, edit configuration...
@@ -16,8 +16,8 @@ class Intro : IntroActivity() {
         pageScrollDuration = 500
         addSlide(
             SimpleSlide.Builder()
-                .title("First Slide")
-                .description("Need location access to provide directions")
+                .title("First Help")
+                .description("HELPHELPHELP HELPHELPHELP HELPHELPHELP")
                 .image(android.R.drawable.ic_menu_mylocation)
                 .background(android.R.color.darker_gray)
                 .backgroundDark(android.R.color.holo_orange_light)
@@ -26,15 +26,24 @@ class Intro : IntroActivity() {
         )
         addSlide(
             SimpleSlide.Builder()
-                .title("Camera")
-                .description("Need camera permission to scan barcode to ease up searching")
+                .title("HELPHELPHELP 2")
+                .description("HELPHELPHELP HELPHELPHELP HELPHELPHELP")
                 .image(android.R.drawable.ic_menu_camera)
                 .background(android.R.color.holo_blue_light)
                 .backgroundDark(android.R.color.holo_orange_light)
                 .scrollable(false)
-                .permission(Manifest.permission.CAMERA)
                 .build()
         )
+//        var temp = FragmentSlide.Builder()
+//        Layou
+//        addSlide(
+//            FragmentSlide.Builder()
+//                .background(R.color.blue_back)
+//                .backgroundDark(R.color.colorPrimaryDark)
+//                .fragment(R.layout.fragment_custom)
+//                .build()
+//        )
+//        Glide.with(applicationContext).load(R.drawable.store_2).into(findViewById(R.id.helpslide))
         addSlide(
             SimpleSlide.Builder()
                 .title("Slide 3")
@@ -45,6 +54,14 @@ class Intro : IntroActivity() {
                 .scrollable(false)
                 .build()
         )
+        val loginSlide = FragmentSlide.Builder()
+            .background(R.color.blue_back)
+            .backgroundDark(R.color.colorPrimaryDark)
+            .fragment(demo.newInstance())
+            .build()
+        addSlide(loginSlide)
+
+
         setNavigationPolicy(object : NavigationPolicy {
             override fun canGoForward(position: Int): Boolean {
                 return true
@@ -56,9 +73,9 @@ class Intro : IntroActivity() {
         })
 
         /* Show/hide button */
-        setButtonBackVisible(true)
+        isButtonBackVisible = true
         /* Use skip button behavior */
-        setButtonBackFunction(BUTTON_BACK_FUNCTION_BACK)
+        buttonBackFunction = BUTTON_BACK_FUNCTION_BACK
 
         /* Show/hide button */
         //setButtonNextVisible(true);

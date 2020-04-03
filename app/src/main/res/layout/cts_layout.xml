@@ -22,7 +22,7 @@
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_dark"
+            android:background="@android:color/darker_gray"
             android:visibility="gone">
 
             <include
@@ -35,7 +35,7 @@
             android:id="@+id/cell_title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark">
+            android:background="@color/blue_back">
 
             <include
                 layout="@layout/cell_title"
