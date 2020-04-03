@@ -3,6 +3,7 @@ package com.example.smartshopper
 import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.app.NavigationPolicy
+import com.heinrichreimersoftware.materialintro.slide.FragmentSlide
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 
 class HelpActivity : IntroActivity() {
@@ -33,6 +34,16 @@ class HelpActivity : IntroActivity() {
                 .scrollable(false)
                 .build()
         )
+//        var temp = FragmentSlide.Builder()
+//        Layou
+//        addSlide(
+//            FragmentSlide.Builder()
+//                .background(R.color.blue_back)
+//                .backgroundDark(R.color.colorPrimaryDark)
+//                .fragment(R.layout.fragment_custom)
+//                .build()
+//        )
+//        Glide.with(applicationContext).load(R.drawable.store_2).into(findViewById(R.id.helpslide))
         addSlide(
             SimpleSlide.Builder()
                 .title("Slide 3")
@@ -43,6 +54,14 @@ class HelpActivity : IntroActivity() {
                 .scrollable(false)
                 .build()
         )
+        val loginSlide = FragmentSlide.Builder()
+            .background(R.color.blue_back)
+            .backgroundDark(R.color.colorPrimaryDark)
+            .fragment(demo.newInstance())
+            .build()
+        addSlide(loginSlide)
+
+
         setNavigationPolicy(object : NavigationPolicy {
             override fun canGoForward(position: Int): Boolean {
                 return true
