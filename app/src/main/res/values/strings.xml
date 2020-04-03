@@ -6,4 +6,9 @@
     <string name="title_barcode">Barcode</string>
     <string name="navbar_help_title">Help</string>
     <string name="contact">Contact Us</string>
+    <string name="splash_title">SmartShopper</string>
+    <string name="splash_image">splach screen image</string>
+    <string name="dialog_title">Enter Item Name</string>
+    <string name="dialog_pagetitle">Add Item</string>
+    <string name="enter_serach">Search Product</string>
 </resources>

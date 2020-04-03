@@ -1,12 +1,13 @@
 package com.example.smartshopper
 
+import android.Manifest
 import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.app.NavigationPolicy
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 
-class Help : IntroActivity() {
 
+class IntroActivity : IntroActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Add slides, edit configuration...
@@ -15,8 +16,8 @@ class Help : IntroActivity() {
         pageScrollDuration = 500
         addSlide(
             SimpleSlide.Builder()
-                .title("First Help")
-                .description("HELPHELPHELP HELPHELPHELP HELPHELPHELP")
+                .title("First Slide")
+                .description("Need location access to provide directions")
                 .image(android.R.drawable.ic_menu_mylocation)
                 .background(android.R.color.darker_gray)
                 .backgroundDark(android.R.color.holo_orange_light)
@@ -25,12 +26,13 @@ class Help : IntroActivity() {
         )
         addSlide(
             SimpleSlide.Builder()
-                .title("HELPHELPHELP 2")
-                .description("HELPHELPHELP HELPHELPHELP HELPHELPHELP")
+                .title("Camera")
+                .description("Need camera permission to scan barcode to ease up searching")
                 .image(android.R.drawable.ic_menu_camera)
                 .background(android.R.color.holo_blue_light)
                 .backgroundDark(android.R.color.holo_orange_light)
                 .scrollable(false)
+                .permission(Manifest.permission.CAMERA)
                 .build()
         )
         addSlide(

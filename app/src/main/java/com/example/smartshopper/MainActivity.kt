@@ -41,7 +41,10 @@ class MainActivity : AppCompatActivity() {
         // chechk for first install and intro completed or not and save it in shared preference
         sharedPref = getSharedPreferences(FIRST_PREF_NAME, Context.MODE_PRIVATE)
         if (!sharedPref.getBoolean(INTRO_COMPLETED, false)) {
-            startActivityForResult(Intent(baseContext, Intro::class.java), REQUEST_CODE_INTRO)
+            startActivityForResult(
+                Intent(baseContext, IntroActivity::class.java),
+                REQUEST_CODE_INTRO
+            )
         }
     }
 
@@ -71,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.navbar_help) {
-            startActivity(Intent(baseContext, Help::class.java))
+            startActivity(Intent(baseContext, HelpActivity::class.java))
         }
         return true
     }

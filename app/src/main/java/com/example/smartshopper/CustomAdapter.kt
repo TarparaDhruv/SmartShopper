@@ -18,7 +18,7 @@ class CustomAdapter(
     val activity: ShoppingList_custom,
     val shoppingList: ArrayList<ShoppingListViewModel>,
     val sharedPref: SharedPreferences,
-    val intface: refreshthipage
+    val intface: RefreshThisFragment
 ) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,7 +38,7 @@ class CustomAdapter(
         val shopList: ShoppingListViewModel = shoppingList[position]
         holder.tvName?.text = shopList.itemName
         holder.cbIsCompleted?.isChecked = shopList.isCompleted
-       if(shopList.isCompleted) {
+        if (shopList.isCompleted) {
             holder.tvName.paintFlags =
                 holder.tvName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }
@@ -52,7 +52,7 @@ class CustomAdapter(
                 putString("Set", json)
                 apply()
             }
-            intface.refreshfrag()
+            intface.refreshFragment()
 
         }
 

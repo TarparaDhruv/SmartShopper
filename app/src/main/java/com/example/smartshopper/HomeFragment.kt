@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
-class HomeFragment_custom : Fragment() {
+class HomeFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var v: View
 

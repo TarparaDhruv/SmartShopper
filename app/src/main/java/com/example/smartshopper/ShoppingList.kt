@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.smartshopper
 
 import android.content.Context
@@ -17,12 +19,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_shopping_list.view.*
 
-interface refreshthipage {
-    fun refreshfrag()
+interface RefreshThisFragment {
+    fun refreshFragment()
 }
 
-class ShoppingList_custom : Fragment(), refreshthipage {
-    override fun refreshfrag() {
+class ShoppingList_custom : Fragment(), RefreshThisFragment {
+
+    override fun refreshFragment() {
         fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
     }
 
