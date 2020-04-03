@@ -7,12 +7,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
 import kotlinx.android.synthetic.main.activity_splash_screen.*
-
-@GlideModule
-class AppGlideModule : AppGlideModule()
 
 class SplashScreenActivity : AppCompatActivity() {
 
