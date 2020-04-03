@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "383264275213",
+    "firebase_url": "https://smartshopper-e4b3c.firebaseio.com",
+    "project_id": "smartshopper-e4b3c",
+    "storage_bucket": "smartshopper-e4b3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383264275213:android:7daec0c4b407b9aa448e44",
+        "android_client_info": {
+          "package_name": "com.example.smartshopper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383264275213-g6rrpbebstjdv8gmrh7ratf3mo8fr50t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartshopper",
+            "certificate_hash": "fe2a98623ccee68d3fbd40882cbfd0e77f4f2ea3"
+          }
+        },
+        {
+          "client_id": "383264275213-1cs94ohsuehda42a7m4d2clkfcqdsvjv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGyhKmFUhqukjdRY6pkcIb5coZ0gIiAhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383264275213-1cs94ohsuehda42a7m4d2clkfcqdsvjv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
