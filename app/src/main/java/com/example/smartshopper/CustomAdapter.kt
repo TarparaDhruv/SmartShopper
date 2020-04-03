@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smartshopper.model.ShoppingListViewModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_shopping_list.*
 
@@ -65,7 +66,13 @@ class CustomAdapter(
         }
 
         holder.ivDone.setOnClickListener {
-            shoppingList.set(position, ShoppingListViewModel(false, holder.evName.text.toString()))
+            shoppingList.set(
+                position,
+                ShoppingListViewModel(
+                    false,
+                    holder.evName.text.toString()
+                )
+            )
             holder.evName.visibility = View.GONE
             holder.ivDone.visibility = View.GONE
             holder.btnRemove.visibility = View.VISIBLE

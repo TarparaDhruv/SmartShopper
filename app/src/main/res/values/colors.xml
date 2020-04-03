@@ -12,8 +12,9 @@
     <color name="blue_back">#d6e7f7</color>
     <color name="green_back">#4caf50</color>
     <color name="cell_expand">#fea944</color>
-    <!--    <color name="primaText">#212121</color>-->
     <color name="cell_orange">#ffa639</color>
+    <color name="list_back">#29cccf</color>
+    <color name="search_back">#2383f7</color>
 
 
 </resources>

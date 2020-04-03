@@ -1,10 +1,13 @@
 package com.example.smartshopper
 
 import android.os.Bundle
+import com.example.smartshopper.custom_intro.HelpBarcode
+import com.example.smartshopper.custom_intro.HelpContact
+import com.example.smartshopper.custom_intro.HelpList
+import com.example.smartshopper.custom_intro.HelpSearch
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.app.NavigationPolicy
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide
-import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 
 class HelpActivity : IntroActivity() {
 
@@ -13,53 +16,32 @@ class HelpActivity : IntroActivity() {
         // Add slides, edit configuration...
         //hides status bar
         isFullscreen = true
+        //set slide change duration
         pageScrollDuration = 500
-        addSlide(
-            SimpleSlide.Builder()
-                .title("First Help")
-                .description("HELPHELPHELP HELPHELPHELP HELPHELPHELP")
-                .image(android.R.drawable.ic_menu_mylocation)
-                .background(android.R.color.darker_gray)
-                .backgroundDark(android.R.color.holo_orange_light)
-                .scrollable(false)
-                .build()
-        )
-        addSlide(
-            SimpleSlide.Builder()
-                .title("HELPHELPHELP 2")
-                .description("HELPHELPHELP HELPHELPHELP HELPHELPHELP")
-                .image(android.R.drawable.ic_menu_camera)
-                .background(android.R.color.holo_blue_light)
-                .backgroundDark(android.R.color.holo_orange_light)
-                .scrollable(false)
-                .build()
-        )
-//        var temp = FragmentSlide.Builder()
-//        Layou
-//        addSlide(
-//            FragmentSlide.Builder()
-//                .background(R.color.blue_back)
-//                .backgroundDark(R.color.colorPrimaryDark)
-//                .fragment(R.layout.fragment_custom)
-//                .build()
-//        )
-//        Glide.with(applicationContext).load(R.drawable.store_2).into(findViewById(R.id.helpslide))
-        addSlide(
-            SimpleSlide.Builder()
-                .title("Slide 3")
-                .description("Slide description 3")
-                .image(android.R.drawable.ic_media_next)
-                .background(android.R.color.holo_blue_light)
-                .backgroundDark(android.R.color.holo_orange_light)
-                .scrollable(false)
-                .build()
-        )
-        val loginSlide = FragmentSlide.Builder()
-            .background(R.color.blue_back)
-            .backgroundDark(R.color.colorPrimaryDark)
-            .fragment(demo.newInstance())
+        var custom_slide = FragmentSlide.Builder()
+            .background(R.color.colorPrimary)
+            .backgroundDark(R.color.colorAccent)
+            .fragment(HelpBarcode.newInstance())
             .build()
-        addSlide(loginSlide)
+        addSlide(custom_slide)
+        custom_slide = FragmentSlide.Builder()
+            .background(R.color.search_back)
+            .backgroundDark(R.color.colorAccent)
+            .fragment(HelpSearch.newInstance())
+            .build()
+        addSlide(custom_slide)
+        custom_slide = FragmentSlide.Builder()
+            .background(R.color.list_back)
+            .backgroundDark(R.color.colorAccent)
+            .fragment(HelpList.newInstance())
+            .build()
+        addSlide(custom_slide)
+        custom_slide = FragmentSlide.Builder()
+            .background(R.color.green_back)
+            .backgroundDark(R.color.colorAccent)
+            .fragment(HelpContact.newInstance())
+            .build()
+        addSlide(custom_slide)
 
 
         setNavigationPolicy(object : NavigationPolicy {
@@ -76,7 +58,6 @@ class HelpActivity : IntroActivity() {
         isButtonBackVisible = true
         /* Use skip button behavior */
         buttonBackFunction = BUTTON_BACK_FUNCTION_BACK
-
         /* Show/hide button */
         //setButtonNextVisible(true);
         /* Use next and finish button behavior */

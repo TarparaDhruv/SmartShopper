@@ -19,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        Glide.with(baseContext).load(R.drawable.store_2).into(splash_gif)
+        Glide.with(baseContext).load(R.drawable.main_logo).into(splash_gif)
 
         object : Thread() {
             override fun run() {

@@ -46,8 +46,8 @@ class HomeFragment : Fragment() {
 
                 Toast.makeText(context, "search hit", Toast.LENGTH_SHORT).show()
                 v.loding_gif.visibility = View.VISIBLE
-                Glide.with(requireContext()).load(R.drawable.store_2).into(v.loding_gif)
-                var handler = Handler()
+                Glide.with(requireContext()).load(R.drawable.main_logo).into(v.loding_gif)
+                val handler = Handler()
                 val r = Runnable {
                     v.loding_gif.visibility = View.GONE
                     //what ever you do here will be done after 3 seconds delay.
