@@ -24,18 +24,21 @@ class HelpActivity : IntroActivity() {
             .fragment(HelpBarcode.newInstance())
             .build()
         addSlide(custom_slide)
+
         custom_slide = FragmentSlide.Builder()
             .background(R.color.search_back)
             .backgroundDark(R.color.colorAccent)
             .fragment(HelpSearch.newInstance())
             .build()
         addSlide(custom_slide)
+
         custom_slide = FragmentSlide.Builder()
             .background(R.color.list_back)
             .backgroundDark(R.color.colorAccent)
             .fragment(HelpList.newInstance())
             .build()
         addSlide(custom_slide)
+
         custom_slide = FragmentSlide.Builder()
             .background(R.color.green_back)
             .backgroundDark(R.color.colorAccent)

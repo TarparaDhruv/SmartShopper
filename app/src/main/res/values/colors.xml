@@ -4,7 +4,7 @@
     <!--    <color name="colorPrimaryDark">#3700B3</color>-->
     <!--    <color name="colorAccent">#03DAC5</color>-->
     <!--    <color name="colorPrimary">#9E9E9E</color>-->
-    <color name="colorPrimaryDark">#616161</color>
+    <color name="colorPrimaryDark">#303F9F</color>
     <!--    <color name="colorAccent">#536DFE</color>-->
     <color name="colorAccent">#ff5242</color>
     <color name="colorPrimary">#3F51B5</color>
@@ -15,6 +15,7 @@
     <color name="cell_orange">#ffa639</color>
     <color name="list_back">#29cccf</color>
     <color name="search_back">#2383f7</color>
+    <color name="camera_back">#e85458</color>
 
 
 </resources>
