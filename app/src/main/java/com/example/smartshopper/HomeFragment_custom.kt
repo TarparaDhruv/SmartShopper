@@ -1,5 +1,6 @@
 package com.example.smartshopper
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,16 +27,19 @@ import kotlinx.android.synthetic.main.cell_title.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
-interface xx{
+interface xx {
     fun getdata()
 }
+
 class HomeFragment_custom : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var v: View
     private val TAG = "HomeFragment"
     var productVersions: MutableList<Product> = ArrayList()
-    lateinit var mAuth :FirebaseAuth
+    lateinit var mAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -92,25 +96,28 @@ class HomeFragment_custom : Fragment() {
 
     fun fetchData(upc: String) {
         var rootRef = FirebaseDatabase.getInstance().reference
-        var storageRef = FirebaseStorage.getInstance()
-            .getReferenceFromUrl("gs://smartshopper-e4b3c.appspot.com/products/id_$upc.png")
         var item: Map<String, Any>?
         lateinit var storeName: String
+        lateinit var storeLogo: String
         rootRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for (postSnapshot in p0.children) {
                     item = postSnapshot.child("items").child(upc).value as Map<String, Any>?
                     if (item != null) {
                         storeName = postSnapshot.child("storeName").value.toString()
-                        var product = Product(storeName, item)
+                        storeLogo = postSnapshot.child("storeLogo").value.toString()
+                        var product = Product(storeName, storeLogo, item)
                         productVersions.add(product)
+                    }
+                    else{
+                        Toast.makeText(context, "Item not found!", Toast.LENGTH_LONG).show()
                     }
                 }
                 productVersions.sortBy { it -> it.item?.get("price") as Double }
-                var temp = RecyclerAdapter(productVersions)
+                var storage = FirebaseStorage.getInstance()
+                var temp = RecyclerAdapter(productVersions, requireContext(), storage)
                 v.recyclerView.adapter = temp
                 temp.notifyDataSetChanged()
-//                textView3.text = productVersions[0].item?.get("price").toString()
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -119,17 +126,8 @@ class HomeFragment_custom : Fragment() {
 
         })
 
-        storageRef.downloadUrl.addOnSuccessListener {
-           // Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
-            Glide.with(requireContext()).load(it).into(v.imageView3)
-        }.addOnFailureListener { }
     }
 
 
 }
 
-/*storageRef.downloadUrl
-.addOnSuccessListener(
-this@MainActivity
-) { uri -> Glide.with(this@MainActivity).load(uri).into(imageView) }
-.addOnFailureListener { }*/
