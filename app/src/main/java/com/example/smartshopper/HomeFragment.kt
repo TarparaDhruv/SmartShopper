@@ -49,14 +49,13 @@ class HomeFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         v.recyclerView.layoutManager = linearLayoutManager
 
-        if (!GLOBAL_BARCODE.isNullOrEmpty()) {
+        if (!GLOBAL_BARCODE.isEmpty()) {
             v.loding_gif.visibility = View.VISIBLE
             Glide.with(requireContext()).load(R.drawable.searchnew).into(v.loding_gif)
             getData(GLOBAL_BARCODE, Constants.BY_UPC.ordinal)
             handler.postDelayed(r, 3000)
         } else {
-            v.loding_gif.visibility = View.VISIBLE
-            Glide.with(requireContext()).load(R.drawable.nothing).into(v.loding_gif)
+            showLoad(v, View.VISIBLE)
         }
 
         v.searchbar.searchEditText.setOnEditorActionListener { vv, actionId, event ->
@@ -67,11 +66,10 @@ class HomeFragment : Fragment() {
                 Glide.with(requireContext()).load(R.drawable.searchnew).into(v.loding_gif)
                 handler.postDelayed(r, 3000)
                 //hide virtual keyboard
-                if (!v.searchbar.searchEditText.text.toString().isNullOrEmpty()) {
+                if (!v.searchbar.searchEditText.text.toString().isEmpty()) {
                     getData(v.searchbar.searchEditText.text.toString(), Constants.BY_NAME.ordinal)
                 } else {
-                    v.loding_gif.visibility = View.VISIBLE
-                    Glide.with(requireContext()).load(R.drawable.nothing).into(v.loding_gif)
+                    showLoad(v, View.VISIBLE)
                 }
                 val inp: InputMethodManager =
                     activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -102,4 +100,8 @@ class HomeFragment : Fragment() {
             }
     }
 
+    fun showLoad(v: View, status: Int) {
+        v.loding_gif.visibility = status
+        Glide.with(requireContext()).load(R.drawable.nothing).into(v.loding_gif)
+    }
 }

@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.example.smartshopper.R
 import com.example.smartshopper.RecyclerAdapter
 import com.example.smartshopper.model.Product
 import com.google.firebase.database.DataSnapshot
@@ -43,8 +45,9 @@ class ProductService(
                     v.recyclerView.adapter = temp
                     temp.notifyDataSetChanged()
                 } else {
+                    v.loding_gif.visibility = View.VISIBLE
+                    Glide.with(context).load(R.drawable.nothing).into(v.loding_gif)
                     Toast.makeText(context, "Item not found!", Toast.LENGTH_LONG).show()
-
                 }
             }
 
@@ -77,6 +80,8 @@ class ProductService(
                     v.recyclerView.adapter = temp
                     temp.notifyDataSetChanged()
                 } else {
+                    v.loding_gif.visibility = View.VISIBLE
+                    Glide.with(context).load(R.drawable.nothing).into(v.loding_gif)
                     Toast.makeText(context, "Item not found!", Toast.LENGTH_LONG).show()
                 }
             }
