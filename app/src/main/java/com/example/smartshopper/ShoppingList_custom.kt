@@ -12,9 +12,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.fragment_shopping_list.view.*
 
 
 class ShoppingList_custom : Fragment() {
@@ -45,7 +45,7 @@ class ShoppingList_custom : Fragment() {
 
         val context: Context = this.context ?: return root
 
-        root.findViewById<FloatingActionButton>(R.id.fabAdd).setOnClickListener {
+        root.fabAdd.setOnClickListener {
             val dialog = AlertDialog.Builder(context)
             val view = inflater.inflate(R.layout.dialog_dashboard, container, false)
             //val view = layoutInflater.inflate(R.layout.dialog_dashboard, null)

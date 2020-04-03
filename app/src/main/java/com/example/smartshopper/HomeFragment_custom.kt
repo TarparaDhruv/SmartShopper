@@ -1,38 +1,26 @@
 package com.example.smartshopper
 
-import android.net.Uri
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.smartshopper.model.Product
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.cell_title.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import java.lang.Exception
-import java.util.*
-import kotlin.collections.ArrayList
-
-interface xx {
-    fun getdata()
-}
 
 class HomeFragment_custom : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -49,6 +37,19 @@ class HomeFragment_custom : Fragment() {
         mAuth = FirebaseAuth.getInstance()
         v = inflater.inflate(R.layout.fragment_home, container, false)
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+
+        v.searchbar.searchEditText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                Toast.makeText(context, "search hit", Toast.LENGTH_SHORT).show()
+
+                val inp: InputMethodManager =
+                    activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inp.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+
+        }
         v.recyclerView.layoutManager = linearLayoutManager
         var upc = "901030756511" //Barcode
 
@@ -63,34 +64,7 @@ class HomeFragment_custom : Fragment() {
                     "signInAnonymously:FAILURE",
                     exception
                 )
-
             }
-
-        //    linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        //   v.recyclerView.layoutManager = linearLayoutManager
-        //   val ll = ArrayList<String>()
-//        ll.add("1")
-//        ll.add("2")
-//        ll.add("3")
-//        ll.add("4")
-//        ll.add("5")
-//        ll.add("6")
-//        ll.add("7")
-//        ll.add("8")
-        /* var temp = RecyclerAdapter(productVersions)
-          v.recyclerView.adapter = temp
-          temp.notifyDataSetChanged()*/
-
-        /*ll.add("23981-2")
-        val lll = ArrayList<String>()
-        //temp = RecyclerAdapter(lll)
-        lll.add("123")
-        v.recyclerView.adapter = RecyclerAdapter(lll)*/
-        // temp.notifyDataSetChanged()
-//        temp.notifyDataSetChanged()
-
-        //  v.recyclerView.adapter = RecyclerAdapter(productVersions)
-
         return v
     }
 
@@ -108,8 +82,7 @@ class HomeFragment_custom : Fragment() {
                         storeLogo = postSnapshot.child("storeLogo").value.toString()
                         var product = Product(storeName, storeLogo, item)
                         productVersions.add(product)
-                    }
-                    else{
+                    } else {
                         Toast.makeText(context, "Item not found!", Toast.LENGTH_LONG).show()
                     }
                 }
@@ -123,11 +96,7 @@ class HomeFragment_custom : Fragment() {
             override fun onCancelled(p0: DatabaseError) {
                 Log.w("HomeFragment", "loadLog:onCancelled", p0.toException())
             }
-
         })
-
     }
-
-
 }
 
