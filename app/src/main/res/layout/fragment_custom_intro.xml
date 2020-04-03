@@ -24,30 +24,39 @@
         android:orientation="vertical"
         android:padding="@dimen/mi_baseline">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="string/title_fragment_custom"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_parallaxFactor="0" />
-
         <ImageView
-            android:id="@+id/load_gif_here"
+            android:id="@+id/slide_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/mi_baseline"
-            android:src="@drawable/store_2"
-            app:layout_parallaxFactor="1.25"
+            android:maxHeight="300dp"
+            android:padding="@dimen/mi_baseline_half"
+            android:scaleType="fitCenter"
+            android:src="@drawable/main_logo"
+            app:layout_parallaxFactor="1.75"
             tools:ignore="ContentDescription" />
 
-        <RatingBar
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/slide_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/mi_baseline"
-            app:layout_parallaxFactor="0.75" />
+            android:gravity="center"
+
+            android:text="Slide Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textSize="36sp"
+            app:layout_parallaxFactor="1" />
+
+        <TextView
+            android:id="@+id/slide_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mi_baseline"
+            android:gravity="center"
+            android:text="Slide Desc"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_parallaxFactor="1" />
 
     </com.heinrichreimersoftware.materialintro.view.parallax.ParallaxLinearLayout>
 

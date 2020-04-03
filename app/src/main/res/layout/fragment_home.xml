@@ -50,13 +50,14 @@
 
     <ImageView
         android:id="@+id/loding_gif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#FFFFFF"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="@+id/recyclerView"
-        app:layout_constraintTop_toTopOf="@+id/recyclerView" />
+        app:layout_constraintTop_toTopOf="@+id/recyclerView"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

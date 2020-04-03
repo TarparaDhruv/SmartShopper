@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.example.smartshopper.R
 import com.example.smartshopper.RecyclerAdapter
 import com.example.smartshopper.model.Product
 import com.google.firebase.database.DataSnapshot
@@ -13,11 +15,13 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class ProductService(private val rootRef: DatabaseReference, private val storage: FirebaseStorage, 
-                     private val v: View, private val context: Context) {
-    
+class ProductService(
+    private val rootRef: DatabaseReference, private val storage: FirebaseStorage,
+    private val v: View, private val context: Context
+) {
+
     var productVersions: MutableList<Product> = ArrayList()
-     lateinit var item: Map<String, Any>
+    var item: Map<String, Any>? = null
     lateinit var storeName: String
     lateinit var storeLogo: String
 
@@ -25,21 +29,24 @@ class ProductService(private val rootRef: DatabaseReference, private val storage
         rootRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for (postSnapshot in p0.children) {
-                    item = postSnapshot.child("items").child(upc).value as Map<String, Any>
+                    item = (postSnapshot.child("items").child(upc).value) as? Map<String, Any>
                     if (item != null) {
                         storeName = postSnapshot.child("storeName").value.toString()
                         storeLogo = postSnapshot.child("storeLogo").value.toString()
                         var product = Product(storeName, storeLogo, item)
                         productVersions.add(product)
+                    } else {
+                        Toast.makeText(context, "not found", Toast.LENGTH_LONG).show()
                     }
                 }
-                if(!productVersions.isEmpty()) {
+                if (!productVersions.isEmpty()) {
                     productVersions.sortBy { it -> it.item?.get("price") as Double }
                     var temp = RecyclerAdapter(productVersions, context, storage)
                     v.recyclerView.adapter = temp
                     temp.notifyDataSetChanged()
-                }
-                else{
+                } else {
+                    v.loding_gif.visibility = View.VISIBLE
+                    Glide.with(context).load(R.drawable.nothing).into(v.loding_gif)
                     Toast.makeText(context, "Item not found!", Toast.LENGTH_LONG).show()
                 }
             }
@@ -55,9 +62,9 @@ class ProductService(private val rootRef: DatabaseReference, private val storage
             override fun onDataChange(p0: DataSnapshot) {
                 for (postSnapshot in p0.children) {
                     var items = postSnapshot.child("items").children
-                    for(itemSnapshot in items){
+                    for (itemSnapshot in items) {
                         var tempItem = itemSnapshot.value as Map<String, Any>
-                        if(tempItem?.get("name").toString().contains(name, true))
+                        if (tempItem.get("name").toString().contains(name, true))
                             item = tempItem
                     }
                     if (item != null) {
@@ -67,13 +74,14 @@ class ProductService(private val rootRef: DatabaseReference, private val storage
                         productVersions.add(product)
                     }
                 }
-                if(!productVersions.isEmpty()) {
+                if (!productVersions.isEmpty()) {
                     productVersions.sortBy { it -> it.item?.get("price") as Double }
                     var temp = RecyclerAdapter(productVersions, context, storage)
                     v.recyclerView.adapter = temp
                     temp.notifyDataSetChanged()
-                }
-                else{
+                } else {
+                    v.loding_gif.visibility = View.VISIBLE
+                    Glide.with(context).load(R.drawable.nothing).into(v.loding_gif)
                     Toast.makeText(context, "Item not found!", Toast.LENGTH_LONG).show()
                 }
             }

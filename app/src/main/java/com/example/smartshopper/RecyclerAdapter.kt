@@ -1,6 +1,7 @@
 package com.example.smartshopper
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
@@ -8,16 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.smartshopper.model.Product
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.ramotion.foldingcell.FoldingCell
 
-class RecyclerAdapter(private val ll: MutableList<Product>, private
-val context: Context, private val storage: FirebaseStorage
+class RecyclerAdapter(
+    private val ll: MutableList<Product>, private
+    val context: Context, private val storage: FirebaseStorage
 ) :
 
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
@@ -33,9 +34,9 @@ val context: Context, private val storage: FirebaseStorage
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var storageRef = storage.getReferenceFromUrl(ll[position].item?.get("imageURI").toString())
-         storageRef.downloadUrl.addOnSuccessListener {
-                   Glide.with(context).load(it).into(holder.image)
-               }.addOnFailureListener { }
+        storageRef.downloadUrl.addOnSuccessListener {
+            Glide.with(context).load(it).into(holder.image)
+        }.addOnFailureListener { }
 
         storageRef = storage.getReferenceFromUrl(ll[position].storeLogo.toString())
         storageRef.downloadUrl.addOnSuccessListener {
@@ -52,8 +53,15 @@ val context: Context, private val storage: FirebaseStorage
         holder.fc.setOnClickListener {
             holder.fc.toggle(false)
         }
+        holder.getdirec.setOnClickListener {
+            //get direction
+            var i = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("google.navigation:q=" + ll[position].storeName.toString())
+            )
+            context.startActivity(i)
+        }
         holder.fc.initialize(1000, Color.DKGRAY, 2)
-        //Toast.makeText(context, imageURI.toString(), Toast.LENGTH_LONG).show()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -66,7 +74,9 @@ val context: Context, private val storage: FirebaseStorage
         val store = itemView.findViewById<TextView>(R.id.store)
         val storeLogo = itemView.findViewById<ImageView>(R.id.storeLogo)
         val description = itemView.findViewById<TextView>(R.id.description)
+        val getdirec = itemView.findViewById<FloatingActionButton>(R.id.getdirection)
         val fc = itemView.findViewById<FoldingCell>(R.id.folding_cell)
+
     }
 
 

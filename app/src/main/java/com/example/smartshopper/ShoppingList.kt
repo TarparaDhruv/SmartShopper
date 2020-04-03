@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.smartshopper.model.ShoppingListViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_shopping_list.view.*
@@ -58,14 +59,15 @@ class ShoppingList_custom : Fragment(), RefreshThisFragment {
             } else {
                 //show empty list gif if size is zero
                 root.empty_shopplin_list_gif.visibility = View.VISIBLE
-                Glide.with(requireContext()).load(R.drawable.store_2)
+                Glide.with(requireContext()).load(R.drawable.emptylist)
                     .into(root.empty_shopplin_list_gif)
                 root.button_delete.visibility = View.GONE
             }
         } else {
             //show empty list gif
             root.empty_shopplin_list_gif.visibility = View.VISIBLE
-            Glide.with(requireContext()).load(R.drawable.store_2).into(root.empty_shopplin_list_gif)
+            Glide.with(requireContext()).load(R.drawable.emptylist)
+                .into(root.empty_shopplin_list_gif)
             root.button_delete.visibility = View.GONE
         }
 
@@ -77,7 +79,12 @@ class ShoppingList_custom : Fragment(), RefreshThisFragment {
             dialog.setView(view)
             dialog.setPositiveButton("Save") { _: DialogInterface, _: Int ->
                 if (itemName.text.isNotEmpty()) {
-                    shoppingList.add(ShoppingListViewModel(false, itemName.text.toString()))
+                    shoppingList.add(
+                        ShoppingListViewModel(
+                            false,
+                            itemName.text.toString()
+                        )
+                    )
                     val gson = Gson()
                     val json = gson.toJson(shoppingList)
                     with(sharedPref.edit()) {

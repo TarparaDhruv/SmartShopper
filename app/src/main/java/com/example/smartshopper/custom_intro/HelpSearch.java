@@ -22,40 +22,43 @@
  * SOFTWARE.
  */
 
-package com.example.smartshopper;
+package com.example.smartshopper.custom_intro;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.bumptech.glide.Glide;
+import com.example.smartshopper.R;
 import com.heinrichreimersoftware.materialintro.app.SlideFragment;
 
-public class demo extends SlideFragment {
+public class HelpSearch extends SlideFragment {
     private ViewDataBinding binding;
 
-    public demo() {
+    public HelpSearch() {
         // Required empty public constructor
     }
 
-    public static demo newInstance() {
-        return new demo();
+    public static HelpSearch newInstance() {
+        return new HelpSearch();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        View v = inflater.inflate(R.layout.fragment_demo, container, false);
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_demo, container, false);
-        ImageView x = binding.getRoot().findViewById(R.id.load_gif_here);
-        Glide.with(requireContext()).load(R.drawable.store_2).into(x);
-//        Glide.with(requireContext()).load(R.drawable.store_2).into(binding.)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_custom_intro, container, false);
+        ImageView x = binding.getRoot().findViewById(R.id.slide_image);
+        Glide.with(requireContext()).load(R.drawable.search).into(x);
+        TextView title = (TextView) binding.getRoot().findViewById(R.id.slide_title);
+        title.setText("Search Product");
+        TextView desc = (TextView) binding.getRoot().findViewById(R.id.slide_description);
+        desc.setText("Search for desired products from various stores");
         return binding.getRoot();
     }
 
