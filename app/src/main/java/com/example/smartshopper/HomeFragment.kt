@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.smartshopper.model.Product
+import com.example.smartshopper.service.ProductService
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -29,8 +27,11 @@ class HomeFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var v: View
     private val TAG = "HomeFragment"
-    var productVersions: MutableList<Product> = ArrayList()
     lateinit var mAuth: FirebaseAuth
+    lateinit var rootRef: DatabaseReference
+    lateinit var storage: FirebaseStorage
+    var upc = "901030756511" //Barcode
+    var name = "milk"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +39,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mAuth = FirebaseAuth.getInstance()
+        rootRef = FirebaseDatabase.getInstance().reference
+        storage = FirebaseStorage.getInstance()
+
         v = inflater.inflate(R.layout.fragment_home, container, false)
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
@@ -54,6 +58,7 @@ class HomeFragment : Fragment() {
                 }
                 handler.postDelayed(r, 3000)
                 //hide virtual keyboard
+                getData(name, Constants.BY_NAME.ordinal)
                 val inp: InputMethodManager =
                     activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inp.hideSoftInputFromWindow(searchEditText.windowToken, 0)
@@ -62,10 +67,17 @@ class HomeFragment : Fragment() {
             return@setOnEditorActionListener false
         }
         v.recyclerView.layoutManager = linearLayoutManager
-        var upc = "901030756511" //Barcode
+      //  getData(name, Constants.BY_NAME.ordinal)
+        return v
+    }
 
+    fun getData(queryString: String, queryType: Int) {
         mAuth.signInAnonymously().addOnSuccessListener(requireActivity()) {
-            fetchData(upc)
+            val productService = ProductService(rootRef, storage, v, requireContext())
+            if(queryType == Constants.BY_NAME.ordinal)
+                productService.fetchDataByName(queryString)
+           else if(queryType == Constants.BY_UPC.ordinal)
+                productService.fetchDataByUPC(queryString)
         }
             .addOnFailureListener(
                 requireActivity()
@@ -76,38 +88,7 @@ class HomeFragment : Fragment() {
                     exception
                 )
             }
-        return v
     }
 
-    fun fetchData(upc: String) {
-        var rootRef = FirebaseDatabase.getInstance().reference
-        var item: Map<String, Any>?
-        lateinit var storeName: String
-        lateinit var storeLogo: String
-        rootRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                for (postSnapshot in p0.children) {
-                    item = postSnapshot.child("items").child(upc).value as Map<String, Any>?
-                    if (item != null) {
-                        storeName = postSnapshot.child("storeName").value.toString()
-                        storeLogo = postSnapshot.child("storeLogo").value.toString()
-                        var product = Product(storeName, storeLogo, item)
-                        productVersions.add(product)
-                    } else {
-                        Toast.makeText(context, "Item not found!", Toast.LENGTH_LONG).show()
-                    }
-                }
-                productVersions.sortBy { it -> it.item?.get("price") as Double }
-                var storage = FirebaseStorage.getInstance()
-                var temp = RecyclerAdapter(productVersions, requireContext(), storage)
-                v.recyclerView.adapter = temp
-                temp.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                Log.w("HomeFragment", "loadLog:onCancelled", p0.toException())
-            }
-        })
-    }
 }
 
