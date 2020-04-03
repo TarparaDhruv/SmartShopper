@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.smartshopper.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_shoppinglist"
+        android:name="com.example.smartshopper.ShoppingList_custom"
+        android:label="@string/title_shopping_list"
+        tools:layout="@layout/fragment_shopping_list" />
+
+    <fragment
+        android:id="@+id/navigation_barcode"
+        android:name="com.example.smartshopper.Barcode_custom"
+        android:label="@string/title_barcode"
+        tools:layout="@layout/fragment_barcode" />
+</navigation>

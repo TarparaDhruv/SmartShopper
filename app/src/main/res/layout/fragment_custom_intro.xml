@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><!--<?xml version="1.0" encoding="utf-8"?>&ndash;&gt;-->
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".demo">-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="@string/hello_blank_fragment" />-->
+
+<!--    &lt;!&ndash;</FrameLayout>-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.heinrichreimersoftware.materialintro.view.parallax.ParallaxLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fitsSystemWindows="false"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/mi_baseline">
+
+        <ImageView
+            android:id="@+id/slide_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxHeight="300dp"
+            android:padding="@dimen/mi_baseline_half"
+            android:scaleType="fitCenter"
+            android:src="@drawable/main_logo"
+            app:layout_parallaxFactor="1.75"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/slide_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mi_baseline"
+            android:gravity="center"
+
+            android:text="Slide Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textSize="36sp"
+            app:layout_parallaxFactor="1" />
+
+        <TextView
+            android:id="@+id/slide_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mi_baseline"
+            android:gravity="center"
+            android:text="Slide Desc"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_parallaxFactor="1" />
+
+    </com.heinrichreimersoftware.materialintro.view.parallax.ParallaxLinearLayout>
+
+</layout>
