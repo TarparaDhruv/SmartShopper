@@ -95,7 +95,13 @@ class ShoppingList_custom : Fragment(), refreshthipage {
         //clear sharedpref and refresh fragment
         root.button_delete.setOnClickListener {
             sharedPref = activity?.getSharedPreferences(SECOND_PREF_NAME, Context.MODE_PRIVATE)!!
-            sharedPref.edit().clear().apply()
+            val gson = Gson()
+            shoppingList.removeAll(shoppingList)
+            val json = gson.toJson(shoppingList)
+            with(sharedPref.edit()) {
+                putString("Set", json)
+                apply()
+            }
 
             recyclerView.adapter = null
             fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
