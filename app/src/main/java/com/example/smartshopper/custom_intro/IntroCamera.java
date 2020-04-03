@@ -56,9 +56,9 @@ public class IntroCamera extends SlideFragment {
         ImageView x = binding.getRoot().findViewById(R.id.slide_image);
         Glide.with(requireContext()).load(R.drawable.camera).into(x);
         TextView title = (TextView) binding.getRoot().findViewById(R.id.slide_title);
-        title.setText("Need Camera Permission!!!");
+        title.setText("Need Camera Permission!!");
         TextView desc = (TextView) binding.getRoot().findViewById(R.id.slide_description);
-        desc.setText("Need camear permission to scan the barcode to ease up searching");
+        desc.setText("Need Camera permission to scan the barcode to ease up searching");
         return binding.getRoot();
     }
 

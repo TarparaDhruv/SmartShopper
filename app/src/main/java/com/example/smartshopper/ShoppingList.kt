@@ -59,14 +59,14 @@ class ShoppingList_custom : Fragment(), RefreshThisFragment {
             } else {
                 //show empty list gif if size is zero
                 root.empty_shopplin_list_gif.visibility = View.VISIBLE
-                Glide.with(requireContext()).load(R.drawable.main_logo)
+                Glide.with(requireContext()).load(R.drawable.emptylist)
                     .into(root.empty_shopplin_list_gif)
                 root.button_delete.visibility = View.GONE
             }
         } else {
             //show empty list gif
             root.empty_shopplin_list_gif.visibility = View.VISIBLE
-            Glide.with(requireContext()).load(R.drawable.main_logo)
+            Glide.with(requireContext()).load(R.drawable.emptylist)
                 .into(root.empty_shopplin_list_gif)
             root.button_delete.visibility = View.GONE
         }

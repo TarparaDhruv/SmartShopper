@@ -2,7 +2,9 @@ package com.example.smartshopper
 
 import android.Manifest
 import android.os.Bundle
+import com.example.smartshopper.custom_intro.HelpBarcode
 import com.example.smartshopper.custom_intro.HelpList
+import com.example.smartshopper.custom_intro.HelpSearch
 import com.example.smartshopper.custom_intro.IntroCamera
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.app.NavigationPolicy
@@ -18,9 +20,9 @@ class IntroActivity : IntroActivity() {
         pageScrollDuration = 500
 
         var custom_slide = FragmentSlide.Builder()
-            .background(R.color.camera_back)
+            .background(R.color.search_back)
             .backgroundDark(android.R.color.holo_orange_light)
-            .fragment(IntroCamera.newInstance())
+            .fragment(HelpSearch.newInstance())
             .build()
         addSlide(custom_slide)
 
@@ -31,17 +33,30 @@ class IntroActivity : IntroActivity() {
             .build()
         addSlide(custom_slide)
 
+        custom_slide = FragmentSlide.Builder()
+            .background(R.color.camera_back)
+            .backgroundDark(android.R.color.holo_orange_light)
+            .fragment(IntroCamera.newInstance())
+            .build()
+        addSlide(custom_slide)
+
         addSlide(
             SimpleSlide.Builder()
-                .title("Camera")
-                .description("Need camera permission to scan barcode to ease up searching")
-                .image(android.R.drawable.ic_menu_camera)
-                .background(android.R.color.holo_blue_light)
+                .title("Camera Permission")
+                .description("Please grant permission foe smooth working of application")
+                .image(R.drawable.camera)
+                .background(R.color.camera_back)
                 .backgroundDark(android.R.color.holo_orange_light)
                 .scrollable(false)
                 .permission(Manifest.permission.CAMERA)
                 .build()
         )
+        custom_slide = FragmentSlide.Builder()
+            .background(R.color.colorPrimary)
+            .backgroundDark(android.R.color.holo_orange_light)
+            .fragment(HelpBarcode.newInstance())
+            .build()
+        addSlide(custom_slide)
 
         setNavigationPolicy(object : NavigationPolicy {
             override fun canGoForward(position: Int): Boolean {

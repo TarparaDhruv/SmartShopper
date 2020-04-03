@@ -17,12 +17,15 @@ import com.bumptech.glide.module.AppGlideModule
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 @GlideModule
-class AppGlideModule: AppGlideModule()
+class AppGlideModule : AppGlideModule()
+
+lateinit var GLOBAL_BARCODE: String
 
 class MainActivity : AppCompatActivity() {
     val INTRO_COMPLETED = "IntroCompleted"
     val FIRST_PREF_NAME = "FirstLaunchPref"
     val REQUEST_CODE_INTRO = 1
+
 
     lateinit var sharedPref: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +53,11 @@ class MainActivity : AppCompatActivity() {
                 Intent(baseContext, IntroActivity::class.java),
                 REQUEST_CODE_INTRO
             )
+        }
+        GLOBAL_BARCODE = ""
+        var codetoscan = intent.getStringExtra("barcode")
+        if (!codetoscan.isNullOrEmpty()) {
+            GLOBAL_BARCODE = codetoscan
         }
     }
 

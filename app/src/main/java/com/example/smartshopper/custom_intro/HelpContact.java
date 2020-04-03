@@ -54,11 +54,13 @@ public class HelpContact extends SlideFragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_custom_intro, container, false);
         ImageView x = binding.getRoot().findViewById(R.id.slide_image);
-        Glide.with(requireContext()).load(R.drawable.main_logo).into(x);
+        Glide.with(requireContext()).load(R.drawable.mail2).into(x);
         TextView title = (TextView) binding.getRoot().findViewById(R.id.slide_title);
         title.setText("Contact Us");
+        title.setTextColor(getResources().getColor(R.color.colorAccent));
         TextView desc = (TextView) binding.getRoot().findViewById(R.id.slide_description);
-        desc.setText("Write your suggestions to us");
+        desc.setTextColor(getResources().getColor(R.color.colorAccent));
+        desc.setText("Write your suggestions to smartshopper@dal.ca");
         return binding.getRoot();
     }
 

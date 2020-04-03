@@ -40,7 +40,7 @@ class HelpActivity : IntroActivity() {
         addSlide(custom_slide)
 
         custom_slide = FragmentSlide.Builder()
-            .background(R.color.green_back)
+            .background(R.color.email_back)
             .backgroundDark(R.color.colorAccent)
             .fragment(HelpContact.newInstance())
             .build()
