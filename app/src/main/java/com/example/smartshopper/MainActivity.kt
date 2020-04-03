@@ -10,7 +10,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
+@GlideModule
+class AppGlideModule: AppGlideModule()
 
 class MainActivity : AppCompatActivity() {
     val INTRO_COMPLETED = "IntroCompleted"
