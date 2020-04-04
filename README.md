@@ -24,6 +24,30 @@ Clone master branch and run with Android Studio in emulator or android device.
 ) - For storing data in SharedPreference.
 
 [Firebase](https://firebase.google.com/docs/libraries) - For storing and retrieving products/stores information and images.  
+## GIFs
+
+## Product Description
+[Milk](https://www.walmart.ca/en/ip/scotsburn-2-milk-jug/6000196944428)
+
+[Vaseline](https://www.vaseline.com/ca/en/products/lotions-and-moisturizers/vaseline-lotion-aloe.html)
+
+[Ivory Body Wash](
+https://www.dollargeneral.com/ivory-body-wash-original-scent-30-oz.html)
+
+## Company Logos used
+[Walmart](https://www.walmart.com/)
+
+[Sobeys](https://www.sobeys.com/en/)
+
+[nofrills](https://www.nofrills.ca/)
+
+[Bigs Grocery](https://bigstorehalifax.com/)
+
+[Costco](https://www.costco.ca/)
+
+[Dmart](https://www.dmartindia.com/)
+
+[Atlantic superstore](https://www.atlanticsuperstore.ca/)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
