@@ -24,7 +24,7 @@ Clone master branch and run with Android Studio in emulator or android device.
 ) - For storing data in SharedPreference.
 
 [Firebase](https://firebase.google.com/docs/libraries) - For storing and retrieving products/stores information and images.  
-## Product Description
+## Product Description Source
 [Milk](https://www.walmart.ca/en/ip/scotsburn-2-milk-jug/6000196944428)
 
 [Vaseline](https://www.vaseline.com/ca/en/products/lotions-and-moisturizers/vaseline-lotion-aloe.html)
